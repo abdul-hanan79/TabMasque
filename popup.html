@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>TabMasque</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <div class="header">
+      <h2>TabMasque</h2>
+      <span class="close-btn" id="close-btn">&times;</span>
+    </div>
+
+    <label for="site">Choose Website:</label>
+    <select id="site">
+      <option value="">Choose one</option>
+      <option value="gmail.com">Gmail</option>
+      <option value="facebook.com">Facebook</option>
+      <option value="youtube.com">YouTube</option>
+      <option value="wikipedia.org">Wikipedia</option>
+      <option value="chat.openai.com">ChatGPT</option>
+      <option value="custom">Custom (Current Tab)</option>
+    </select>
+
+    <label for="title">New Title:</label>
+    <input type="text" id="title" placeholder="Enter new title" />
+
+    <label for="favicon">Favicon URL:</label>
+    <input type="text" id="favicon" disabled />
+
+    <button id="apply">Apply Changes</button>
+
+    <script src="popup.js"></script>
+  </body>
+</html>
