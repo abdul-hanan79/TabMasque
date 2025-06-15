@@ -11,10 +11,16 @@ document.getElementById("site").addEventListener("change", function () {
   const selectedSite = this.value;
   const faviconInput = document.getElementById("favicon");
 
-  if (faviconMap[selectedSite]) {
-    faviconInput.value = faviconMap[selectedSite];
+  if (selectedSite === "custom") {
+    faviconInput.removeAttribute("disabled"); // Enable input
+    faviconInput.value = ""; // Clear input
   } else {
-    faviconInput.value = "";
+    faviconInput.setAttribute("disabled", true); // Disable input
+    if (faviconMap[selectedSite]) {
+      faviconInput.value = faviconMap[selectedSite];
+    } else {
+      faviconInput.value = "";
+    }
   }
 });
 
