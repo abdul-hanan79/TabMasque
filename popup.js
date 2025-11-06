@@ -7,22 +7,44 @@ const faviconMap = {
   "chat.openai.com": "https://chat.openai.com/favicon.ico",
 };
 
+// Function to validate form and enable/disable apply button
+function validateForm() {
+  const siteSelect = document.getElementById("site");
+  const titleInput = document.getElementById("title");
+  const applyButton = document.getElementById("apply");
+  
+  // Check if both required fields are filled
+  const isValid = siteSelect.value !== "" && titleInput.value.trim() !== "";
+  
+  // Enable/disable button based on validation
+  applyButton.disabled = !isValid;
+}
+
+// Add input event listeners for validation
 document.getElementById("site").addEventListener("change", function () {
   const selectedSite = this.value;
   const faviconInput = document.getElementById("favicon");
 
   if (selectedSite === "custom") {
-    faviconInput.removeAttribute("disabled"); // Enable input
-    faviconInput.value = ""; // Clear input
+    faviconInput.removeAttribute("disabled");
+    faviconInput.value = "";
   } else {
-    faviconInput.setAttribute("disabled", true); // Disable input
+    faviconInput.setAttribute("disabled", true);
     if (faviconMap[selectedSite]) {
       faviconInput.value = faviconMap[selectedSite];
     } else {
       faviconInput.value = "";
     }
   }
+  
+  validateForm();
 });
+
+// Add input event listener for title field
+document.getElementById("title").addEventListener("input", validateForm);
+
+// Initial validation check
+validateForm();
 
 document.getElementById("apply").addEventListener("click", async () => {
   const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
@@ -57,6 +79,29 @@ document.getElementById("apply").addEventListener("click", async () => {
       }
     },
     args: [title, favicon],
+  });
+});
+
+// Reset button logic
+document.getElementById("reset").addEventListener("click", async () => {
+  const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+  const pageUrl = new URL(tab.url).origin;
+
+  // Clear stored data for this site
+  chrome.storage.local.remove(pageUrl, async () => {
+    // Reset the form
+    document.getElementById("title").value = "";
+    document.getElementById("favicon").value = "";
+    document.getElementById("site").value = "";
+
+    // Reset the page title and favicon
+    await chrome.scripting.executeScript({
+      target: { tabId: tab.id },
+      func: () => {
+        // Reload the page to restore original title and favicon
+        window.location.reload();
+      }
+    });
   });
 });
 
