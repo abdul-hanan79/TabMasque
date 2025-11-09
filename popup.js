@@ -1,8 +1,7 @@
 const faviconMap = {
   "gmail.com": "https://ssl.gstatic.com/ui/v1/icons/mail/rfr/gmail.ico",
   "facebook.com": "https://static.xx.fbcdn.net/rsrc.php/y1/r/ay1hV6OlegS.ico",
-  "youtube.com":
-    "https://www.youtube.com/s/desktop/d36f30a8/img/logos/favicon_144x144.png",
+  "youtube.com":"https://www.youtube.com/s/desktop/d36f30a8/img/logos/favicon_144x144.png",
   "wikipedia.org": "https://www.wikipedia.org/static/favicon/wikipedia.ico",
   "chat.openai.com": "https://chat.openai.com/favicon.ico",
 };
